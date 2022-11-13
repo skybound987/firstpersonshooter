@@ -1,28 +1,38 @@
 import pygame as pg
 import sys
-from settings import *
+from settings import * #imports pygame library, modules and settings
+from map import *
+from player import *
+from raycaster import *
 
 
 class Game:
     def __init__(self):
         pg.init()
         self.screen = pg.display.set_mode(RES)
-        self.clock = pg.time.Clock()
+        self.clock = pg.time.Clock() # shows a clock with framerate
+        self.delta_time = 1
+        self.new_game()
 
     def new_game(self):
-        pass
+        self.map = Map(self)
+        self.player = Player(self)
+        self.raycasting = RayCasting(self)
 
     def update(self):
+        self.player.update()
+        self.raycasting.update()
         pg.display.flip()
-        self.clock.tick(FPS)
+        self.delta_time = self.clock.tick(FPS)  # sets clock to the frame rate (or does it just show "FPS"
         pg.display.set_caption(f'{self.clock.get_fps() :.1f}')
 
     def draw(self):
-        self.screen.fill('black')
-
-    def check_events(self):
+        self.screen.fill('black') # paints screen black
+        self.map.draw()
+        self.player.draw()
+    def check_events(self): # method for checking events, if escape key is pressed it will exit
         for event in pg.event.get():
-            if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K.ESCAPE):
+            if event.type == pg.QUIT:
                 pg.quit()
                 sys.exit()
 
@@ -33,6 +43,6 @@ class Game:
             self.draw()
 
 
-if __name__ == '__main__':
+if __name__ == '__main__':  #Creates an instance of the game
     game = Game()
     game.run()
