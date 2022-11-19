@@ -30,7 +30,7 @@ class Game:
         self.screen.fill('black') # paints screen black
         self.map.draw()
         self.player.draw()
-    def check_events(self): # method for checking events, if escape key is pressed it will exit
+    def check_events(self): # allows game exit
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()

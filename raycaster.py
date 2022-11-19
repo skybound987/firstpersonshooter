@@ -43,7 +43,7 @@ class RayCasting:
 
             for i in range(MAX_DEPTH):  # this stops casting the ray further if it hits a wall
                 tile_vert = int(x_vert), int(y_vert)
-                if tile_vert in self.game.map.world.map:
+                if tile_vert in self.game.map.world_map:
                     break
                 x_vert += dx
                 y_vert += dy
